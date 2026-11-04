@@ -155,3 +155,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a55b42cfc319964fb89ce941871b90d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagneticItem
+  weight: 2
+  value: 3
