@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MagnetController : MonoBehaviour
@@ -20,6 +21,8 @@ public class MagnetController : MonoBehaviour
     public float TotalWeight { get; private set; }
 
     public int CarriedCount => carriedItems.Count;
+
+    public event Action<int, Vector3> OnItemCollected;
 
     private Rigidbody ballBody;
 
@@ -87,20 +90,28 @@ public class MagnetController : MonoBehaviour
         }
     }
 
+
     void CollectItem(MagneticItem item)
     {
+        // Remember where it was before attaching.
+        Vector3 pickupPosition = item.transform.position;
+
         item.AttachTo(ballBody);
         carriedItems.Add(item);
 
-        // Current inventory statistics.
         CarriedValue += item.value;
         TotalWeight += item.weight;
 
-        // Only earn score for a new discovery.
         if (discoveredItems.Add(item))
         {
             Score += item.value;
         }
+
+        // Tell any listening UI that an item was collected.
+        OnItemCollected?.Invoke(
+            item.value,
+            pickupPosition
+        );
 
         Debug.Log(
             "Score: " + Score +
@@ -108,6 +119,7 @@ public class MagnetController : MonoBehaviour
             " | Items: " + CarriedCount
         );
     }
+
 
     void DropEverything()
     {
