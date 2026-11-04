@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Rigidbody))]
 public class MagnetController : MonoBehaviour
 {
     [Header("Magnet Settings")]
@@ -13,11 +14,26 @@ public class MagnetController : MonoBehaviour
     [Header("Magnet State")]
     public bool magnetIsOn = true;
 
+    // Statistics that other scripts can read.
+    public int Score { get; private set; }
+    public int CarriedValue { get; private set; }
     public float TotalWeight { get; private set; }
+
     public int CarriedCount => carriedItems.Count;
+
+    private Rigidbody ballBody;
 
     private List<MagneticItem> carriedItems =
         new List<MagneticItem>();
+
+    // Prevents scoring the same item repeatedly.
+    private HashSet<MagneticItem> discoveredItems =
+        new HashSet<MagneticItem>();
+
+    void Awake()
+    {
+        ballBody = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
@@ -37,11 +53,8 @@ public class MagnetController : MonoBehaviour
     void FixedUpdate()
     {
         if (!magnetIsOn)
-        {
             return;
-        }
 
-        // Find nearby colliders.
         Collider[] nearbyObjects = Physics.OverlapSphere(
             transform.position,
             attractionRadius
@@ -49,14 +62,11 @@ public class MagnetController : MonoBehaviour
 
         foreach (Collider hit in nearbyObjects)
         {
-            // Only attract objects with MagneticItem.
             MagneticItem item =
                 hit.GetComponent<MagneticItem>();
 
             if (item == null || item.IsHeld)
-            {
                 continue;
-            }
 
             Vector3 direction =
                 transform.position - item.transform.position;
@@ -77,22 +87,27 @@ public class MagnetController : MonoBehaviour
         }
     }
 
-
     void CollectItem(MagneticItem item)
     {
-        Rigidbody ballBody = GetComponent<Rigidbody>();
-
         item.AttachTo(ballBody);
-
         carriedItems.Add(item);
+
+        // Current inventory statistics.
+        CarriedValue += item.value;
         TotalWeight += item.weight;
 
+        // Only earn score for a new discovery.
+        if (discoveredItems.Add(item))
+        {
+            Score += item.value;
+        }
+
         Debug.Log(
-            "Carrying: " + CarriedCount +
-            " | Weight: " + TotalWeight
+            "Score: " + Score +
+            " | Value: $" + CarriedValue +
+            " | Items: " + CarriedCount
         );
     }
-
 
     void DropEverything()
     {
@@ -100,17 +115,26 @@ public class MagnetController : MonoBehaviour
         {
             if (item != null)
             {
-                item.Release(transform.position, dropForce);
+                item.Release(
+                    transform.position,
+                    dropForce
+                );
             }
         }
 
         carriedItems.Clear();
+
+        // Dropped items are no longer being carried.
+        CarriedValue = 0;
         TotalWeight = 0f;
+
+        // Score stays the same!
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
+
         Gizmos.DrawWireSphere(
             transform.position,
             attractionRadius
