@@ -1,16 +1,29 @@
+
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float moveForce = 12f;
+
+    private Rigidbody rb;
+    private Vector3 movement;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        movement = new Vector3(moveX, 0f, moveZ).normalized;
+    }
+
+    void FixedUpdate()
+    {
+        rb.AddForce(movement * moveForce, ForceMode.Acceleration);
     }
 }
