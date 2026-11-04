@@ -77,21 +77,12 @@ public class MagnetController : MonoBehaviour
         }
     }
 
+
     void CollectItem(MagneticItem item)
     {
-        Vector3 direction =
-            item.transform.position - transform.position;
+        Rigidbody ballBody = GetComponent<Rigidbody>();
 
-        if (direction.sqrMagnitude < 0.001f)
-        {
-            direction = Vector3.right;
-        }
-
-        // Move later items slightly farther outward.
-        float distance = 0.85f +
-            (carriedItems.Count / 8) * 0.2f;
-
-        item.AttachTo(transform, direction, distance);
+        item.AttachTo(ballBody);
 
         carriedItems.Add(item);
         TotalWeight += item.weight;
@@ -101,6 +92,7 @@ public class MagnetController : MonoBehaviour
             " | Weight: " + TotalWeight
         );
     }
+
 
     void DropEverything()
     {

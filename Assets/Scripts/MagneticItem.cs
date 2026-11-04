@@ -11,61 +11,60 @@ public class MagneticItem : MonoBehaviour
     public bool IsHeld { get; private set; }
     public Rigidbody Body { get; private set; }
 
-    private Collider itemCollider;
+    private FixedJoint attachment;
 
     void Awake()
     {
         Body = GetComponent<Rigidbody>();
-        itemCollider = GetComponent<Collider>();
     }
 
-    public void AttachTo(
-        Transform magnet,
-        Vector3 direction,
-        float distance)
+    public void AttachTo(Rigidbody ballBody)
     {
-        // Stop the item's physics movement.
-        Body.linearVelocity = Vector3.zero;
-        Body.angularVelocity = Vector3.zero;
+        if (IsHeld) return;
 
-        // The magnet now controls the item.
-        Body.isKinematic = true;
-        Body.useGravity = false;
-        itemCollider.enabled = false;
+        // Keep the item physically active.
+        Body.isKinematic = false;
+        Body.useGravity = true;
 
-        // Attach it to the ball.
-        transform.SetParent(magnet, true);
-        transform.position =
-            magnet.position + direction.normalized * distance;
+        // Prevent sudden movement when attaching.
+        Body.linearVelocity = ballBody.linearVelocity;
+        Body.angularVelocity = ballBody.angularVelocity;
+
+        // Physically connect the item to the ball.
+        attachment = gameObject.AddComponent<FixedJoint>();
+
+        attachment.connectedBody = ballBody;
+        attachment.enableCollision = false;
+        attachment.breakForce = Mathf.Infinity;
+        attachment.breakTorque = Mathf.Infinity;
 
         IsHeld = true;
     }
 
     public void Release(Vector3 ballPosition, float dropForce)
     {
-        // Find a direction away from the ball.
-        Vector3 direction = transform.position - ballPosition;
-        direction.y = Mathf.Max(direction.y, 0.3f);
-        direction.Normalize();
+        if (!IsHeld) return;
 
-        // Detach from the ball.
-        transform.SetParent(null, true);
-
-        // Move outward to reduce overlap with the ball.
-        transform.position =
-            ballPosition + direction * 1.15f;
-
-        // Restore physics.
-        Body.isKinematic = false;
-        Body.useGravity = true;
-        itemCollider.enabled = true;
-
-        // Push the item away a little.
-        Body.AddForce(
-            direction * dropForce,
-            ForceMode.Impulse
-        );
+        if (attachment != null)
+        {
+            Destroy(attachment);
+            attachment = null;
+        }
 
         IsHeld = false;
+
+        // Small outward push when released.
+        Vector3 direction =
+            transform.position - ballPosition;
+
+        if (direction.sqrMagnitude < 0.001f)
+            direction = Vector3.right;
+
+        direction.y += 0.3f;
+
+        Body.AddForce(
+            direction.normalized * dropForce,
+            ForceMode.Impulse
+        );
     }
 }
