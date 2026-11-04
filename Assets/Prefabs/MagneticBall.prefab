@@ -127,7 +127,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e150be66daa6f164d91444ca570a5626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveForce: 12
+  moveForce: 18
+  rollTorque: 30
+  weightSlowdown: 0.25
+  minimumPower: 0.4
+  tumbleUp: 5
+  tumbleForward: 2
+  tumbleRotation: 7
+  stuckSpeed: 0.6
+  stuckDuration: 0.35
+  tumbleCooldown: 1.5
 --- !u!54 &-128840313462024742
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -136,9 +145,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5497849279348717314}
   serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 2
-  m_AngularDamping: 0.05
+  m_Mass: 5
+  m_LinearDamping: 0.8
+  m_AngularDamping: 0.3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -167,3 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c798698a965ae14bb8e867878299ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagnetController
+  attractionRadius: 3.5
+  attractionStrength: 20
+  pickupDistance: 1.1
+  dropForce: 2
+  magnetIsOn: 1
