@@ -146,15 +146,15 @@ RectTransform:
   m_GameObject: {fileID: 5348211}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.14, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 902993060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5348213
 MonoBehaviour:
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.76
 --- !u!222 &5348214
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -609,6 +609,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210ed262220771c49b7c2fdd0b731884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDFeedback
+  magnet: {fileID: 1642040589}
+  gameCamera: {fileID: 1022727005}
+  canvas: {fileID: 570472087}
+  magnetStatusText: {fileID: 1268776268}
+  magnetOnColor: {r: 0, g: 1, b: 0, a: 1}
+  magnetOffColor: {r: 1, g: 0, b: 0, a: 1}
+  weightBarFill: {fileID: 5348213}
+  weightText: {fileID: 656249422}
+  maxDisplayWeight: 20
+  popupPrefab: {fileID: 3722486620950762841, guid: 2207c85b391fcd44e81a7ffb1c68169a, type: 3}
 --- !u!1 &656249420
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,8 +653,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.1, y: -69.3}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -16.800049, y: -102}
+  m_SizeDelta: {x: 226.9, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &656249422
 MonoBehaviour:
@@ -975,7 +985,7 @@ GameObject:
   - component: {fileID: 905385028}
   - component: {fileID: 905385027}
   m_Layer: 5
-  m_Name: StartsPanel
+  m_Name: StatsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
