@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Environment")]
+    public float environmentMoveMultiplier = 1f;
+
     [Header("Movement")]
     public float moveForce = 18f;
     public float rollTorque = 30f;
@@ -27,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float stuckTimer;
     private float cooldownTimer;
+
+    private float power = 1f;
 
     void Awake()
     {
@@ -63,14 +68,15 @@ public class PlayerMovement : MonoBehaviour
             carriedCount = magnet.CarriedCount;
         }
 
-        float power = 1f /
+        power = 1f /
             (1f + weight * weightSlowdown);
 
         power = Mathf.Max(minimumPower, power);
 
         // Move forward.
-        rb.AddForce(
-            movement * moveForce * power,
+       rb.AddForce(
+            movement * moveForce * power
+            * environmentMoveMultiplier,
             ForceMode.Acceleration
         );
 
@@ -133,8 +139,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Give the ball a sudden burst of rotation.
         rb.AddTorque(
-            rollAxis * tumbleRotation,
-            ForceMode.VelocityChange
+            rollAxis * rollTorque * power
+            * environmentMoveMultiplier,
+            ForceMode.Acceleration
         );
 
         Debug.Log("TUMBLE!");

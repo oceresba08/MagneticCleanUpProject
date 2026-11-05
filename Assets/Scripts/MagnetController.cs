@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MagnetController : MonoBehaviour
-{
+public class MagnetController : MonoBehaviour { 
     [Header("Magnet Settings")]
     public float attractionRadius = 3.5f;
     public float attractionStrength = 20f;
