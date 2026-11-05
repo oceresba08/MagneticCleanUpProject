@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     public float stuckDuration = 0.35f;
     public float tumbleCooldown = 1.5f;
 
+    [Header("Camera")]
+    public Transform cameraTransform;
+
     private Rigidbody rb;
     private MagnetController magnet;
     private Vector3 movement;
@@ -41,13 +44,35 @@ public class PlayerMovement : MonoBehaviour
         rb.maxAngularVelocity = 30f;
     }
 
+
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        movement = new Vector3(x, 0f, z).normalized;
+        // If no camera is assigned, use world movement.
+        if (cameraTransform == null)
+        {
+            movement = new Vector3(x, 0f, z).normalized;
+            return;
+        }
+
+        // Get the camera's forward and right directions.
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        // Remove vertical components so the ball
+        // doesn't try to fly into the air.
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        // Convert keyboard input into camera-relative movement.
+        movement = (forward * z + right * x).normalized;
     }
+
 
     void FixedUpdate()
     {

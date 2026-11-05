@@ -31,6 +31,6 @@ public class CameraFollow : MonoBehaviour
             followSpeed * Time.deltaTime
         );
 
-        transform.LookAt(target.position);
+        //transform.LookAt(target.position);
     }
 }
