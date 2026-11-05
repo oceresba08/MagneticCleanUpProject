@@ -242,12 +242,11 @@ Transform:
   m_GameObject: {fileID: 28156660}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.39, y: -0, z: 51.85}
+  m_LocalPosition: {x: 57.15, y: 1.2, z: 2.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 737479752}
-  - {fileID: 765314841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &28156663
@@ -262,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d840816a8734540a68a308fcf75f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelZone
-  zoneType: 0
+  zoneType: 1
   levelManager: {fileID: 765314842}
   playerBody: {fileID: 2222333511098742082}
 --- !u!1 &32884639
@@ -354,7 +353,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 20, y: 1, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1367,8 +1366,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737479751}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50.1, y: 1.92, z: -48.8}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.66000366, y: 0, z: 0.050002337}
   m_LocalScale: {x: 4, y: 0.04, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1596,11 +1595,11 @@ Transform:
   m_GameObject: {fileID: 765314840}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.888111, y: 0.68359, z: -20.592669}
+  m_LocalPosition: {x: 29.27811, y: 0.68359, z: 31.25733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 28156662}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &765314842
 MonoBehaviour:
@@ -1619,13 +1618,13 @@ MonoBehaviour:
   timerText: {fileID: 1423884243}
   bankedText: {fileID: 2014523304}
   zonePromptText: {fileID: 1484583588}
-  resultsPanel: {fileID: 0}
-  resultTitleText: {fileID: 0}
-  resultValueText: {fileID: 0}
-  resultItemsText: {fileID: 0}
-  resultScoreText: {fileID: 0}
-  resultTimeText: {fileID: 0}
-  bestTimeText: {fileID: 0}
+  resultsPanel: {fileID: 866804248}
+  resultTitleText: {fileID: 795173933}
+  resultValueText: {fileID: 1577028464}
+  resultItemsText: {fileID: 1689203362}
+  resultScoreText: {fileID: 1389196441}
+  resultTimeText: {fileID: 85145633}
+  bestTimeText: {fileID: 193932520}
 --- !u!1 &795173931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2915,7 +2914,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -46.1, y: -41.68}
+  m_AnchoredPosition: {x: -46.1, y: -41.680054}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1484583588
@@ -5382,3 +5381,4 @@ SceneRoots:
   - {fileID: 32884642}
   - {fileID: 1815490807}
   - {fileID: 28156662}
+  - {fileID: 765314841}
