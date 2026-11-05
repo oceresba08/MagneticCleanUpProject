@@ -18,7 +18,8 @@ public class MagnetController : MonoBehaviour {
     public int Score { get; private set; }
     public int CarriedValue { get; private set; }
     public float TotalWeight { get; private set; }
-
+    public int BankedValue { get; private set; }
+    public int BankedCount { get; private set; }
     public int CarriedCount => carriedItems.Count;
 
     public event Action<int, Vector3> OnItemCollected;
@@ -67,7 +68,7 @@ public class MagnetController : MonoBehaviour {
             MagneticItem item =
                 hit.GetComponent<MagneticItem>();
 
-            if (item == null || item.IsHeld)
+            if (item == null || !item.isActiveAndEnabled || item.IsHeld)
                 continue;
 
             Vector3 direction =
@@ -151,4 +152,38 @@ public class MagnetController : MonoBehaviour {
             attractionRadius
         );
     }
+
+    public int BankCargo()
+    {
+        int depositedCount = 0;
+
+        foreach (MagneticItem item in carriedItems)
+        {
+            if (item == null)
+                continue;
+
+            // Remove the physical joint and drop the object.
+            item.Release(transform.position, 0f);
+
+            // Record its value permanently for this run.
+            BankedValue += item.value;
+            BankedCount++;
+            depositedCount++;
+
+            // Prevent this metal from being collected again.
+            // Keep its Rigidbody and Collider active.
+            item.enabled = false;
+        }
+
+        carriedItems.Clear();
+
+        CarriedValue = 0;
+        TotalWeight = 0f;
+
+        Debug.Log("Banked " + depositedCount +
+                  " items. Total: $" + BankedValue);
+
+        return depositedCount;
+    }
+
 }
