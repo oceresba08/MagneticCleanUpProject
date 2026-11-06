@@ -9,15 +9,25 @@ public class GiantClam : MonoBehaviour
     [Header("Shell")]
     public Transform topShellPivot;
 
-    // Use 1 or -1 to reverse rotation direction.
-    public float rotationDirection = 1f;
+    [Tooltip("The angle when the clam is wide open.")]
+    public float openAngle = 90f;
+
 
     [Header("Timing")]
     public float openDuration = 4f;
-    public float windupDuration = 0.8f;
-    public float snapDuration = 0.15f;
+
+    // Wind from 90 degrees to 180 degrees.
+    public float windupDuration = 1.2f;
+
+    // Pause at the top of the windup.
+    public float windupHoldDuration = 0.35f;
+
+    // Fast snap from 180 degrees to 0 degrees.
+    public float closeDuration = 0.35f;
+
     public float closedDuration = 2f;
-    public float reopenDuration = 0.6f;
+    public float reopenDuration = 0.8f;
+
 
     [Header("Treasure")]
     public MagneticItem treasure;
@@ -34,90 +44,121 @@ public class GiantClam : MonoBehaviour
     public TMP_Text statusText;
     public GameObject clamGameOverPanel;
 
-    private Quaternion closedRotation;
-    private bool treasureTaken;
-    private bool gameOver;
+    private bool gameOver = false;
+    private bool treasureTaken = false;
 
     void Start()
     {
-        if (topShellPivot == null || captureZone == null)
+        // Check important references.
+        if (topShellPivot == null ||
+            captureZone == null ||
+            playerBody == null)
         {
             Debug.LogError(
-                "Assign TopShellPivot and CaptureZone!"
+                "GiantClam is missing a reference!"
             );
 
             enabled = false;
             return;
         }
 
-        // The pivot's Inspector rotation represents 0°.
-        closedRotation = topShellPivot.localRotation;
+        // Ensure the capture area does not block the ball.
+        captureZone.isTrigger = true;
 
+        // Reset the game's time.
+        // Do not change Time.timeScale here because
+        // another system may control pausing.
         if (clamGameOverPanel != null)
             clamGameOverPanel.SetActive(false);
 
-        // Start OPEN at 90 degrees.
-        SetShellAngle(90f);
+        // Start with the clam wide open.
+        SetShellAngle(openAngle);
+
         ShowTreasure(true);
 
         StartCoroutine(ClamCycle());
     }
 
+
     void Update()
     {
-        // Remember if the treasure was collected.
-        if (treasure != null && treasure.IsHeld)
+        if (treasure == null || treasureTaken)
+            return;
+
+        // Detect when the coin attaches to the ball.
+        if (treasure.IsHeld)
+        {
             treasureTaken = true;
+
+            // The clam no longer owns this treasure.
+            Debug.Log("Clam treasure collected permanently!");
+
+            // Move the treasure out of the clam's hierarchy.
+            treasure.transform.SetParent(null, true);
+
+            // Remove the anchor so it cannot interfere.
+            ClamTreasureAnchor anchor =
+                treasure.GetComponent<ClamTreasureAnchor>();
+
+            if (anchor != null)
+                anchor.enabled = false;
+        }
     }
+
+
 
     IEnumerator ClamCycle()
     {
         while (!gameOver)
         {
-            // PHASE 1: Open at 90 degrees.
-            SetShellAngle(90f);
+            // 1. OPEN: Start upright.
+            SetShellAngle(openAngle);
             SetStatus("CLAM OPEN!");
-
             ShowTreasure(true);
 
             yield return new WaitForSeconds(
                 Mathf.Max(0f, openDuration)
             );
 
-            // PHASE 2: Wind forward to 180.
+            // 2. WINDUP: Move from 90 to 180 degrees.
             SetStatus("CLAM WINDING UP! ESCAPE!");
 
+            float windupAngle = openAngle * 2f;
+
             yield return StartCoroutine(
-                RotateShell(
-                    90f,
-                    180f,
-                    windupDuration,
-                    false
+                AnimateShell(
+                    openAngle,
+                    windupAngle,
+                    windupDuration
                 )
             );
 
-            // PHASE 3: Snap from 180 to 0.
+            // Brief pause before the snap.
+            yield return new WaitForSeconds(
+                Mathf.Max(0f, windupHoldDuration)
+            );
+
+            // 3. SNAP: Move from 180 to 0 degrees.
             SetStatus("SNAP!");
 
             yield return StartCoroutine(
-                RotateShell(
-                    180f,
+                AnimateShell(
+                    windupAngle,
                     0f,
-                    snapDuration,
-                    true
+                    closeDuration
                 )
             );
 
             SetShellAngle(0f);
 
-            // Check actual collider overlap NOW.
-            if (IsPlayerInsideClam())
+            // Check if the ball got caught.
+            if (IsPlayerCaught())
             {
-                TriggerClamGameOver();
+                TriggerGameOver();
                 yield break;
             }
 
-            // Player escaped.
+            // 4. CLOSED: Wait before reopening.
             SetStatus("CLAM CLOSED");
             ShowTreasure(false);
 
@@ -125,51 +166,43 @@ public class GiantClam : MonoBehaviour
                 Mathf.Max(0f, closedDuration)
             );
 
-            // PHASE 4: Open from 0 to 90.
+            // 5. REOPEN: Return to the original
+            // upright position, not 180 degrees.
             SetStatus("CLAM OPENING");
 
             yield return StartCoroutine(
-                RotateShell(
+                AnimateShell(
                     0f,
-                    90f,
-                    reopenDuration,
-                    false
+                    openAngle,
+                    reopenDuration
                 )
             );
+
+            SetShellAngle(openAngle);
         }
     }
 
-    IEnumerator RotateShell(
+
+    IEnumerator AnimateShell(
         float startAngle,
         float endAngle,
-        float duration,
-        bool snap)
+        float duration)
     {
         duration = Mathf.Max(0.01f, duration);
 
-        float timer = 0f;
+        float elapsed = 0f;
 
-        while (timer < duration)
+        while (elapsed < duration)
         {
-            timer += Time.deltaTime;
+            elapsed += Time.deltaTime;
 
             float t = Mathf.Clamp01(
-                timer / duration
+                elapsed / duration
             );
 
-            if (snap)
-            {
-                // Fast acceleration.
-                t = t * t;
-            }
-            else
-            {
-                // Smooth windup / opening.
-                t = t * t * (3f - 2f * t);
-            }
+            // Smooth animation.
+            t = t * t * (3f - 2f * t);
 
-            // Mathf.Lerp preserves the intended 180-to-0
-            // angle path, rather than choosing a shortcut.
             float angle = Mathf.Lerp(
                 startAngle,
                 endAngle,
@@ -186,43 +219,35 @@ public class GiantClam : MonoBehaviour
 
     void SetShellAngle(float angle)
     {
+        // Direct X rotation: no stored rotation offsets.
         topShellPivot.localRotation =
-            closedRotation *
-            Quaternion.Euler(
-                angle * rotationDirection,
-                0f,
-                0f
-            );
+            Quaternion.Euler(angle, 0f, 0f);
     }
 
-    bool IsPlayerInsideClam()
+    bool IsPlayerCaught()
     {
         if (playerBody == null || captureZone == null)
             return false;
 
-        // Use the actual BoxCollider geometry
-        // to check for overlapping objects.
-        Vector3 center = captureZone.transform.TransformPoint(
-            captureZone.center
-        );
-
-        Vector3 size = captureZone.size;
+        Vector3 center =
+            captureZone.transform.TransformPoint(
+                captureZone.center
+            );
 
         Vector3 scale =
             captureZone.transform.lossyScale;
 
-        Vector3 halfExtents = new Vector3(
-            size.x * Mathf.Abs(scale.x) * 0.5f,
-            size.y * Mathf.Abs(scale.y) * 0.5f,
-            size.z * Mathf.Abs(scale.z) * 0.5f
-        );
+        Vector3 halfSize = new Vector3(
+            captureZone.size.x * Mathf.Abs(scale.x),
+            captureZone.size.y * Mathf.Abs(scale.y),
+            captureZone.size.z * Mathf.Abs(scale.z)
+        ) * 0.5f;
 
-        // Ensure current physics transforms are up to date.
         Physics.SyncTransforms();
 
         Collider[] hits = Physics.OverlapBox(
             center,
-            halfExtents,
+            halfSize,
             captureZone.transform.rotation,
             ~0,
             QueryTriggerInteraction.Ignore
@@ -232,45 +257,77 @@ public class GiantClam : MonoBehaviour
         {
             if (hit.attachedRigidbody == playerBody)
             {
-                Debug.Log("Player caught by clam!");
+                Debug.Log("CLAM: Player caught!");
                 return true;
             }
         }
 
-        Debug.Log("Player escaped the clam!");
+        Debug.Log("CLAM: Player escaped!");
         return false;
     }
 
+
+
     void ShowTreasure(bool visible)
     {
-        if (treasure == null || treasureTaken)
+        if (treasure == null)
             return;
 
+        // Already successfully collected.
+        if (treasure.IsHeld)
+        {
+            treasureTaken = true;
+            return;
+        }
+
+        if (treasureTaken)
+            return;
+
+        ClamTreasureAnchor anchor =
+            treasure.GetComponent<ClamTreasureAnchor>();
+
+        // The coin was released from its anchor.
+        // It now belongs to the normal physics system,
+        // even if the magnet hasn't attached it yet.
+        if (anchor != null && !anchor.enabled)
+            return;
+
+        // Only hide the coin while still anchored.
         treasure.gameObject.SetActive(visible);
     }
 
-    void TriggerClamGameOver()
+
+
+    void TriggerGameOver()
     {
         if (gameOver)
             return;
 
         gameOver = true;
 
-        SetStatus("CLAM GAME OVER!");
+        SetStatus("CLAMMED SHUT!");
 
+        // Drop carried metal.
         if (playerMagnet != null)
         {
             playerMagnet.DropEverything();
             playerMagnet.enabled = false;
         }
 
+        // Stop movement.
         if (playerMovement != null)
             playerMovement.enabled = false;
 
+        // Freeze the ball without writing velocity
+        // to an already-kinematic Rigidbody.
         if (playerBody != null)
         {
-            playerBody.linearVelocity = Vector3.zero;
-            playerBody.angularVelocity = Vector3.zero;
+            if (!playerBody.isKinematic)
+            {
+                playerBody.linearVelocity = Vector3.zero;
+                playerBody.angularVelocity = Vector3.zero;
+            }
+
             playerBody.isKinematic = true;
         }
 
@@ -295,7 +352,6 @@ public class GiantClam : MonoBehaviour
         );
     }
 
-    // Show the capture area when the clam is selected.
     void OnDrawGizmosSelected()
     {
         if (captureZone == null)
@@ -303,7 +359,7 @@ public class GiantClam : MonoBehaviour
 
         Gizmos.color = Color.red;
 
-        Matrix4x4 oldMatrix = Gizmos.matrix;
+        Matrix4x4 previousMatrix = Gizmos.matrix;
 
         Gizmos.matrix =
             captureZone.transform.localToWorldMatrix;
@@ -313,6 +369,6 @@ public class GiantClam : MonoBehaviour
             captureZone.size
         );
 
-        Gizmos.matrix = oldMatrix;
+        Gizmos.matrix = previousMatrix;
     }
 }
