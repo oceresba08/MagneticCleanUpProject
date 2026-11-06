@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1938418833647823287}
   - component: {fileID: 7011044156175691748}
   - component: {fileID: 2893936486765422016}
+  - component: {fileID: 9168315517245247491}
   m_Layer: 0
   m_Name: TinCan
   m_TagString: Untagged
@@ -157,3 +158,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MagneticItem
   weight: 2
   value: 3
+--- !u!114 &9168315517245247491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332380125137593585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c20e127fb4af74db4c11159a4c14f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PawnShopLootTag
+  kind: 1

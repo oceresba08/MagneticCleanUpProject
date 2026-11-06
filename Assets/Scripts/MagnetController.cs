@@ -195,6 +195,14 @@ public class MagnetController : MonoBehaviour {
             if (item == null)
                 continue;
 
+            PawnShopLootTag tag =
+            item.GetComponent<PawnShopLootTag>();
+
+            if (tag != null)
+            {
+                PawnShopLootLog.RecordItem(tag.kind);
+            }
+
             // Remove the physical joint and drop the object.
             item.Release(transform.position, 0f);
 

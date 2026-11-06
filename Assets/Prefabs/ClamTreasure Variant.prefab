@@ -107,6 +107,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7139344548999784028, guid: 2f23cba4f4a82be49be702ec0ac3adb5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8527041380481152532}
+    - targetCorrespondingSourceObject: {fileID: 7139344548999784028, guid: 2f23cba4f4a82be49be702ec0ac3adb5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1646382212049557840}
   m_SourcePrefab: {fileID: 100100000, guid: 2f23cba4f4a82be49be702ec0ac3adb5, type: 3}
 --- !u!114 &4293105276050725113 stripped
 MonoBehaviour:
@@ -139,3 +142,16 @@ MonoBehaviour:
   player: {fileID: 0}
   magneticItem: {fileID: 4293105276050725113}
   releaseDistance: 3
+--- !u!114 &-1646382212049557840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583912310842206471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c20e127fb4af74db4c11159a4c14f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PawnShopLootTag
+  kind: 2

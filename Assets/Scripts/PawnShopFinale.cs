@@ -2,10 +2,24 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 using TMPro;
+
+
+
+[System.Serializable]
+public class LootRainEntry
+{
+    public LootKind kind;
+    public GameObject rainPrefab;
+}
 
 public class PawnShopFinale : MonoBehaviour
 {
+
+    [Header("Collected Item Rain")]
+    public LootRainEntry[] collectedRainPrefabs;
+
     [Header("Player")]
     public Rigidbody playerBody;
 
@@ -52,48 +66,61 @@ public class PawnShopFinale : MonoBehaviour
         // Do not freeze the Rigidbody.
         // The player can keep rolling!
 
-        if (rainPrefabs != null &&
-            rainPrefabs.Length > 0)
+
+        List<GameObject> itemsToRain =
+            new List<GameObject>();
+
+        // Build a list containing ONLY banked items.
+        foreach (LootRainEntry entry in collectedRainPrefabs)
         {
-            float delay = rainDuration /
-                Mathf.Max(1, rainCount);
+            if (entry.rainPrefab == null)
+                continue;
 
-            for (int i = 0; i < rainCount; i++)
+            int count = PawnShopLootLog.GetCount(entry.kind);
+
+            for (int i = 0; i < count; i++)
             {
-                GameObject prefab =
-                    rainPrefabs[
-                        Random.Range(0, rainPrefabs.Length)
-                    ];
-
-                if (prefab != null)
-                {
-                    // Read the player's CURRENT position
-                    // for every falling object.
-                    Vector3 center = playerBody.position;
-
-                    Vector3 spawnPosition =
-                        center + new Vector3(
-                            Random.Range(
-                                -rainWidth / 2f,
-                                rainWidth / 2f
-                            ),
-                            spawnHeight,
-                            Random.Range(
-                                -rainLength / 2f,
-                                rainLength / 2f
-                            )
-                        );
-
-                    Instantiate(
-                        prefab,
-                        spawnPosition,
-                        Random.rotation
-                    );
-                }
-
-                yield return new WaitForSeconds(delay);
+                itemsToRain.Add(entry.rainPrefab);
             }
         }
+
+        // Shuffle the order so different item types
+        // fall in a mixed sequence.
+        for (int i = itemsToRain.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+
+            GameObject temp = itemsToRain[i];
+            itemsToRain[i] = itemsToRain[j];
+            itemsToRain[j] = temp;
+        }
+
+        // Spawn each item above the MOVING ball.
+        float delay = rainDuration /
+            Mathf.Max(1, itemsToRain.Count);
+
+        foreach (GameObject prefab in itemsToRain)
+        {
+            Vector3 center = playerBody.position;
+
+            Vector3 spawnPosition = center +
+                new Vector3(
+                    Random.Range(-rainWidth / 2f,
+                                 rainWidth / 2f),
+                    spawnHeight,
+                    Random.Range(-rainLength / 2f,
+                                 rainLength / 2f)
+                );
+
+            Instantiate(
+                prefab,
+                spawnPosition,
+                Random.rotation
+            );
+
+            yield return new WaitForSeconds(delay);
+        }
+
 
         // Give the last objects time to fall.
         yield return new WaitForSeconds(1f);
@@ -182,6 +209,8 @@ public class PawnShopFinale : MonoBehaviour
 
         // Clear the previous Ocean and Beach results.
         FinalRunStats.ClearRun();
+
+        PawnShopLootLog.Clear();
 
         // Return to the first level.
         SceneManager.LoadScene("Ocean");

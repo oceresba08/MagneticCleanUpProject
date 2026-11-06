@@ -5,7 +5,7 @@ public enum LootKind
 {
     Coin,
     TinCan,
-    Gear
+    ClamTreasure
 }
 
 public class PawnShopLootTag : MonoBehaviour
