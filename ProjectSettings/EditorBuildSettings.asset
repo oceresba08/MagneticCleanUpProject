@@ -5,9 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Ocean.unity
+    guid: 9d3af580352d1734c9b7f563402bc23f
+  - enabled: 1
+    path: Assets/Scenes/Beach.unity
+    guid: 9c6ec0ed77f30cd4d8cc89bd321ccd76
+  - enabled: 1
+    path: Assets/Scenes/PawnShop.unity
+    guid: 29bebaac5d5dc4645a5c8314883a4ead
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
