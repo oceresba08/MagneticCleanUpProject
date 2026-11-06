@@ -1331,6 +1331,11 @@ MonoBehaviour:
   pickupDistance: 1.1
   dropForce: 2
   magnetIsOn: 1
+--- !u!54 &2222333511098742093 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 3707662713011784116, guid: 560ea1062e47d624fa5cafe268c6ea43, type: 3}
+  m_PrefabInstance: {fileID: 4236531498296154878}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2986314663894528185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1415,7 +1420,7 @@ PrefabInstance:
     - target: {fileID: 250393308836055056, guid: 2b010095e1d5a024c96974c928b900ac, type: 3}
       propertyPath: playerBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742093}
     - target: {fileID: 250393308836055056, guid: 2b010095e1d5a024c96974c928b900ac, type: 3}
       propertyPath: beachTerrain
       value: 
@@ -1430,7 +1435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4371907562993349362, guid: 2b010095e1d5a024c96974c928b900ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 1.16
       objectReference: {fileID: 0}
     - target: {fileID: 4371907562993349362, guid: 2b010095e1d5a024c96974c928b900ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1562,7 +1567,7 @@ PrefabInstance:
     - target: {fileID: 2163189480939273956, guid: ae034135088d0d94eb20d9530c186e2b, type: 3}
       propertyPath: playerBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742093}
     - target: {fileID: 2163189480939273956, guid: ae034135088d0d94eb20d9530c186e2b, type: 3}
       propertyPath: levelManager
       value: 
@@ -1630,7 +1635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5112895568196347624, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.83243
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 5112895568196347624, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1667,7 +1672,7 @@ PrefabInstance:
     - target: {fileID: 7909172239872448777, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: magnet
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742092}
     - target: {fileID: 7909172239872448777, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: beachSand
       value: 
@@ -1675,7 +1680,7 @@ PrefabInstance:
     - target: {fileID: 7909172239872448777, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: playerBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742093}
     - target: {fileID: 7909172239872448777, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: beachTerrain
       value: 
@@ -1687,7 +1692,7 @@ PrefabInstance:
     - target: {fileID: 7909172239872448777, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: playerMovement
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742086}
     - target: {fileID: 7909172239872448777, guid: e6d9d28c6372c9844b03025c4ef34413, type: 3}
       propertyPath: sandwormGameOverPanel
       value: 
@@ -1720,7 +1725,7 @@ PrefabInstance:
     - target: {fileID: 2141582602334546590, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: magnet
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742092}
     - target: {fileID: 2141582602334546590, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: gameCamera
       value: 
@@ -1812,7 +1817,7 @@ PrefabInstance:
     - target: {fileID: 7420140265114713930, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: magnet
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742092}
     - target: {fileID: 7811088702934749909, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1894,7 +1899,7 @@ PrefabInstance:
     - target: {fileID: 1702618669994405680, guid: a7ef45005999fa2429654efe9723080f, type: 3}
       propertyPath: playerBody
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2222333511098742093}
     - target: {fileID: 1702618669994405680, guid: a7ef45005999fa2429654efe9723080f, type: 3}
       propertyPath: levelManager
       value: 
