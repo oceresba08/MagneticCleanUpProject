@@ -165,6 +165,15 @@ public class LevelRunManager : MonoBehaviour
         if (inCollectorZone && magnet != null)
             magnet.BankCargo();
 
+        FinalRunStats.SaveLevel(
+            UnityEngine.SceneManagement.SceneManager
+            .GetActiveScene().name,
+            magnet.BankedValue,
+            magnet.BankedCount,
+            magnet.Score,
+            elapsedTime
+          );
+
         // Save best time only for manual completion.
         if (manualFinish)
         {
