@@ -4,7 +4,13 @@ using System.Collections.Generic;
 using System;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MagnetController : MonoBehaviour { 
+public class MagnetController : MonoBehaviour {
+
+    [Header("Crab Attack")]
+    public float crabDisableDuration = 2f;
+
+    private float magnetDisabledUntil = 0f;
+
     [Header("Magnet Settings")]
     public float attractionRadius = 3.5f;
     public float attractionStrength = 20f;
@@ -38,20 +44,31 @@ public class MagnetController : MonoBehaviour {
         ballBody = GetComponent<Rigidbody>();
     }
 
+
     void Update()
     {
+        // Restore the magnet after the cooldown.
+        if (magnetDisabledUntil > 0f)
+        {
+            if (Time.time >= magnetDisabledUntil)
+            {
+                magnetDisabledUntil = 0f;
+                magnetIsOn = true;
+            }
+
+            // Ignore E during the crab cooldown.
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             magnetIsOn = !magnetIsOn;
 
             if (!magnetIsOn)
-            {
                 DropEverything();
-            }
-
-            Debug.Log("Magnet ON: " + magnetIsOn);
         }
     }
+
 
     void FixedUpdate()
     {
@@ -91,6 +108,22 @@ public class MagnetController : MonoBehaviour {
     }
 
 
+    public void GetHitByCrab()
+    {
+        // Drop everything the ball is carrying.
+        DropEverything();
+
+        // Turn off the magnet temporarily.
+        magnetIsOn = false;
+
+        // Record when the magnet can work again.
+        magnetDisabledUntil =
+            Time.time + crabDisableDuration;
+
+        Debug.Log("Magnet disabled by crab!");
+    }
+
+
     void CollectItem(MagneticItem item)
     {
         // Remember where it was before attaching.
@@ -121,7 +154,7 @@ public class MagnetController : MonoBehaviour {
     }
 
 
-    void DropEverything()
+    public void DropEverything()
     {
         foreach (MagneticItem item in carriedItems)
         {
