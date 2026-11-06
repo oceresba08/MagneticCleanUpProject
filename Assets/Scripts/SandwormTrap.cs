@@ -34,12 +34,37 @@ public class SandwormTrap : MonoBehaviour
     public GameObject warningIndicator;
     public GameObject sandwormGameOverPanel;
 
+
+    [Header("Sand Effects")]
+    public ParticleSystem warningDust;
+    public ParticleSystem burstDust;
+
+    [Header("Warning Shake")]
+    public float shakeStrength = 0.08f;
+    public float shakeSpeed = 25f;
+
+
     private bool playerInside;
     private bool attackStarted;
     private Coroutine warningRoutine;
 
     void Start()
     {
+        if (warningDust != null)
+        {
+            warningDust.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmittingAndClear
+            );
+        }
+
+        if (burstDust != null)
+        {
+            burstDust.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmittingAndClear
+            );
+        }
         if (wormVisual != null)
             wormVisual.gameObject.SetActive(false);
 
@@ -75,24 +100,88 @@ public class SandwormTrap : MonoBehaviour
     }
 
 
+
     IEnumerator AttackSequence()
     {
-        // 1. Warn the player.
+        // Remember the warning indicator's original position.
+        Vector3 originalPosition = Vector3.zero;
+
         if (warningIndicator != null)
+        {
+            originalPosition =
+                warningIndicator.transform.localPosition;
+
             warningIndicator.SetActive(true);
+        }
 
-        yield return new WaitForSeconds(warningDuration);
+        // Start emitting warning dust.
+        if (warningDust != null)
+        {
+            warningDust.Play();
+        }
 
+        float warningTimer = 0f;
+
+        while (warningTimer < warningDuration)
+        {
+            warningTimer += Time.deltaTime;
+
+            float progress = Mathf.Clamp01(
+                warningTimer / Mathf.Max(0.01f, warningDuration)
+            );
+
+            // Shake harder as the warning approaches its end.
+            float currentShake = shakeStrength * progress;
+
+            float shakeX = Mathf.Sin(
+                warningTimer * shakeSpeed
+            ) * currentShake;
+
+            float shakeZ = Mathf.Cos(
+                warningTimer * shakeSpeed * 1.3f
+            ) * currentShake;
+
+            if (warningIndicator != null)
+            {
+                warningIndicator.transform.localPosition =
+                    originalPosition +
+                    new Vector3(shakeX, 0f, shakeZ);
+            }
+
+            // Escape cancels the attack.
+            if (!playerInside)
+                break;
+
+            yield return null;
+        }
+
+        // Reset and hide the warning circle.
         if (warningIndicator != null)
-            warningIndicator.SetActive(false);
+        {
+            warningIndicator.transform.localPosition =
+                originalPosition;
 
-        // Player escaped!
+            warningIndicator.SetActive(false);
+        }
+
+        // Stop creating warning particles,
+        // but allow existing particles to fade naturally.
+        if (warningDust != null)
+        {
+            warningDust.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmitting
+            );
+        }
+
         if (!playerInside || playerBody == null ||
             wormVisual == null || mouthPoint == null)
         {
             warningRoutine = null;
             yield break;
         }
+
+        // KEEP the remaining sandworm attack code here.
 
         attackStarted = true;
 
@@ -148,6 +237,20 @@ public class SandwormTrap : MonoBehaviour
         // Make the worm appear underground.
         wormVisual.gameObject.SetActive(true);
         wormVisual.position = wormBottom;
+
+
+        // Create an explosion at the sand surface.
+        if (burstDust != null)
+        {
+            burstDust.transform.position = new Vector3(
+                playerStart.x,
+                surfaceY + 0.15f,
+                playerStart.z
+            );
+
+            burstDust.Play();
+        }
+
 
         // 3. Worm rises, lifting the player.
         float timer = 0f;
