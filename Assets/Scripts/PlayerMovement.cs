@@ -36,6 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
     private float power = 1f;
 
+    private PowerUpController powerUps;
+
+    void Start()
+    {
+        powerUps = GetComponent<PowerUpController>();
+    }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -93,26 +100,56 @@ public class PlayerMovement : MonoBehaviour
             carriedCount = magnet.CarriedCount;
         }
 
-        power = 1f /
-            (1f + weight * weightSlowdown);
 
-        power = Mathf.Max(minimumPower, power);
+
+
+        float strengthBoost = powerUps != null
+            ? powerUps.StrengthMultiplier
+            : 1f;
+
+        bool strengthActive = strengthBoost > 1f;
+
+        if (strengthActive)
+        {
+            // Ignore carried-weight slowdown completely.
+            power = 1f;
+        }
+        else
+        {
+            // Normal weight slowdown.
+            power = 1f /
+                (1f + weight * weightSlowdown);
+
+            power = Mathf.Max(minimumPower, power);
+        }
+
+
+        float speedBoost = powerUps != null
+    ? powerUps.SpeedMultiplier
+    : 1f;
+
+        float movementBoost =
+            speedBoost * (strengthActive ? 1.25f : 1f);
 
         // Move forward.
-       rb.AddForce(
+        rb.AddForce(
             movement * moveForce * power
-            * environmentMoveMultiplier,
+            * environmentMoveMultiplier * speedBoost,
             ForceMode.Acceleration
         );
+
+
 
         // Roll forward.
         Vector3 rollAxis =
             Vector3.Cross(Vector3.up, movement);
 
         rb.AddTorque(
-            rollAxis * rollTorque * power,
+            rollAxis * rollTorque * power
+            * speedBoost,
             ForceMode.Acceleration
         );
+
 
         // Check horizontal movement speed.
         Vector3 horizontalVelocity =

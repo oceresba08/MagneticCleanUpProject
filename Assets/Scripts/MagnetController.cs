@@ -28,6 +28,8 @@ public class MagnetController : MonoBehaviour {
     public int BankedCount { get; private set; }
     public int CarriedCount => carriedItems.Count;
 
+    public IReadOnlyList<MagneticItem> CarriedItems => carriedItems;
+
     public event Action<int, Vector3> OnItemCollected;
 
     private Rigidbody ballBody;
@@ -39,8 +41,11 @@ public class MagnetController : MonoBehaviour {
     private HashSet<MagneticItem> discoveredItems =
         new HashSet<MagneticItem>();
 
+    private PowerUpController powerUps;
+
     void Awake()
     {
+        powerUps = GetComponent<PowerUpController>();
         ballBody = GetComponent<Rigidbody>();
     }
 
@@ -93,17 +98,28 @@ public class MagnetController : MonoBehaviour {
 
             float distance = direction.magnitude;
 
-            if (distance <= pickupDistance)
+            float effectivePickupDistance = pickupDistance *
+    (powerUps != null ? powerUps.StrengthMultiplier : 1f);
+
+            if (distance <= effectivePickupDistance)
             {
                 CollectItem(item);
             }
+
             else if (distance > 0.001f)
             {
+                // Check whether Strength Boost is active.
+                float boost = powerUps != null
+                    ? powerUps.StrengthMultiplier
+                    : 1f;
+
+                // Apply magnetic attraction with the boost.
                 item.Body.AddForce(
-                    direction.normalized * attractionStrength,
+                    direction.normalized * attractionStrength * boost,
                     ForceMode.Acceleration
                 );
             }
+
         }
     }
 
