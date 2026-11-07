@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1475672365687888768, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
+      propertyPath: kind
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859262739388100163, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
+      propertyPath: value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859262739388100163, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
+      propertyPath: weight
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5411221240678772594, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: m_Name
       value: SpamCan

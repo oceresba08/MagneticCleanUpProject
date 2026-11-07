@@ -114,10 +114,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallCan
       objectReference: {fileID: 0}
+    - target: {fileID: 2893936486765422016, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
+      propertyPath: value
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2893936486765422016, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
+      propertyPath: weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9106486926279450873, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ff99d0e425737e243b53a4d83aac6c89, type: 2}
+    - target: {fileID: 9168315517245247491, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
+      propertyPath: kind
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1400196052288340153, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}

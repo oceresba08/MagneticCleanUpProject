@@ -3347,6 +3347,14 @@ MonoBehaviour:
     rainPrefab: {fileID: 2332380125137593585, guid: 1a17bd008f207fa449a31439ddcf8dea, type: 3}
   - kind: 2
     rainPrefab: {fileID: 7139344548999784028, guid: 6ff9f4695fba3df4f9ab8bfd9f8f7018, type: 3}
+  - kind: 3
+    rainPrefab: {fileID: 5812374777446386965, guid: 884fde2e8811ba74e935d92b1425bf48, type: 3}
+  - kind: 4
+    rainPrefab: {fileID: 5589857324117426752, guid: 0f967206f75d95746a077203b4ed6198, type: 3}
+  - kind: 5
+    rainPrefab: {fileID: 5411221240678772594, guid: 6b39af2146131d9468fe6ee35217493d, type: 3}
+  - kind: 6
+    rainPrefab: {fileID: 833879599361497621, guid: 32abace50c04b83469003c7bd160f1a6, type: 3}
   playerBody: {fileID: 1251787878}
   rainPrefabs:
   - {fileID: 6583912310842206471, guid: 32a3106b70f5c5b47b1788de60d2816f, type: 3}

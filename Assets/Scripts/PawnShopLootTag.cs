@@ -5,7 +5,11 @@ public enum LootKind
 {
     Coin,
     TinCan,
-    ClamTreasure
+    ClamTreasure,
+    SpamCan,
+    TallCan,
+    SpamCanBox,
+    SpamCanRound
 }
 
 public class PawnShopLootTag : MonoBehaviour
