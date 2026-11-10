@@ -1,48 +1,63 @@
+using System.Collections;
 using UnityEngine;
 
 public class BoatObstacle : MonoBehaviour
 {
     [SerializeField] private GameObject boatPrefab;
+    GameObject currentBoat;
+    float timePass = 0f;
     const float spawnWait = 10f;
+    bool madeObject = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
-        for (int i = 0; i < 10; i++)
-        {
-            Instantiate(boatPrefab, new Vector3(Random.Range(-9, 20), 0.5f, Random.Range(-8, 9)), Quaternion.identity);
-        }
+        StartCoroutine(onCoroutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        float timePass = Time.deltaTime;
-        if (timePass % spawnWait == 0f)
+        timePass += Time.deltaTime;
+        if (madeObject)
         {
-            if (Random.Range(0, 1) == 0)
+            currentBoat.transform.position += transform.forward * 1.0f * Time.deltaTime;
+        }
+    }
+    IEnumerator onCoroutine()
+    {
+        int i = 0;
+        while (true)
+        {
+            Debug.Log("Hey " + (int)timePass + " " + i);
+            if (i % 3 == 0)
             {
-                if (Random.Range(0, 1) == 0)
+                if (Random.Range(0, 2) == 0)
                 {
-                    Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 0.5f, 0), Quaternion.identity);
+                    if (Random.Range(0, 2) == 0)
+                    {
+                       currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 0.5f, 0), Quaternion.identity);
+                       currentBoat.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    }
+                    else
+                    {
+                        currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 0.5f, 58), Quaternion.identity);
+                    }
                 }
                 else
                 {
-                    Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 0.5f, 58), Quaternion.identity);
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        currentBoat = Instantiate(boatPrefab, new Vector3(0, 0.5f, Random.Range(0, 58)), Quaternion.identity);
+                    }
+                    else
+                    {
+                        currentBoat = Instantiate(boatPrefab, new Vector3(63, 0.5f, Random.Range(0, 58)), Quaternion.identity);
+                    }
                 }
+                madeObject = true;
             }
-            else
-            {
-                if (Random.Range(0, 1) == 0)
-                {
-                    Instantiate(boatPrefab, new Vector3(0, 0.5f, Random.Range(0, 58)), Quaternion.identity);
-                }
-                else
-                {
-                    Instantiate(boatPrefab, new Vector3(63, 0.5f, Random.Range(0, 58)), Quaternion.identity);
-                }
-            }
-            
+            i++;
+            yield return new WaitForSeconds(10f);
         }
     }
 }
