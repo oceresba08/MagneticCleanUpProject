@@ -31,12 +31,12 @@ public class BoatObstacle : MonoBehaviour
             Debug.Log("Hey " + (int)timePass + " " + i);
             if (i % 3 == 0)
             {
-                if (Random.Range(0, 2) == 0)
+                if (Random.Range(0, 1) == 0)
                 {
-                    if (Random.Range(0, 2) == 0)
+                    if (Random.Range(0, 1) == 0)
                     {
                        currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 0.5f, 0), Quaternion.identity);
-                       currentBoat.transform.rotation = Quaternion.Euler(0, 90, 0);
+                       currentBoat.transform.rotation = Quaternion.Euler(0, 270, 0);
                     }
                     else
                     {
