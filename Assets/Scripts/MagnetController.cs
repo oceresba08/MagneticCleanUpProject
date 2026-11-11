@@ -1,10 +1,14 @@
 
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Unity.AI.Assistant.Agents;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MagnetController : MonoBehaviour {
+public class MagnetController : MonoBehaviour
+{
 
     [Header("Crab Attack")]
     public float crabDisableDuration = 2f;
@@ -19,6 +23,11 @@ public class MagnetController : MonoBehaviour {
 
     [Header("Magnet State")]
     public bool magnetIsOn = true;
+
+    [Header("UI")]
+    public TMP_Text knockedText;
+
+    bool showKnocked = false;
 
     // Statistics that other scripts can read.
     public int Score { get; private set; }
@@ -47,6 +56,7 @@ public class MagnetController : MonoBehaviour {
     {
         powerUps = GetComponent<PowerUpController>();
         ballBody = GetComponent<Rigidbody>();
+        knockedText.gameObject.SetActive(false);
     }
 
 
@@ -72,6 +82,8 @@ public class MagnetController : MonoBehaviour {
             if (!magnetIsOn)
                 DropEverything();
         }
+
+        StartCoroutine(onCoroutine());
     }
 
 
@@ -243,4 +255,39 @@ public class MagnetController : MonoBehaviour {
         return depositedCount;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Submarine"))
+        {
+            magnetIsOn = !magnetIsOn;
+            knockedText.gameObject.SetActive(true);
+            if (!magnetIsOn)
+            {
+                DropEverything();
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Submarine"))
+        {
+            showKnocked = true;
+        }
+    }
+
+    IEnumerator onCoroutine()
+    {
+        if (showKnocked)
+        {
+            knockedText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            showKnocked = false;
+        }
+        else
+        {
+            knockedText.gameObject.SetActive(false);
+        }
+
+    }
 }

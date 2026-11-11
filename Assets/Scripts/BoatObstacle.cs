@@ -7,6 +7,7 @@ public class BoatObstacle : MonoBehaviour
     GameObject currentBoat;
     float timePass = 0f;
     float speed = 5f;
+    [Header("Spawn Settings")]
     bool madeObjectLeft, madeObjectRight, reverse = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,16 +55,16 @@ public class BoatObstacle : MonoBehaviour
                 reverse = false;
                 madeObjectRight = false;
                 madeObjectLeft = false;
-                if (Random.Range(0, 2) == 0)
+                if (Random.Range(1, 1) == 0)
                 {
                     if (Random.Range(0, 2) == 0)
                     {
-                       currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 4.0f, 0), Quaternion.identity);
-                       currentBoat.transform.rotation = Quaternion.Euler(0, 270, 0);
+                       currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 3.0f, 0), Quaternion.identity);
+                       currentBoat.transform.rotation = Quaternion.Euler(90, 0, 0);
                     }
                     else
                     {
-                        currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 4.0f, 58), Quaternion.identity);
+                        currentBoat = Instantiate(boatPrefab, new Vector3(Random.Range(0, 63), 3.0f, 58), Quaternion.identity);
                         currentBoat.transform.rotation = Quaternion.Euler(0, 90, 0);
                         reverse = true;
                     }
@@ -71,20 +72,22 @@ public class BoatObstacle : MonoBehaviour
                 }
                 else
                 {
-                    if (Random.Range(0, 2) == 0)
+                    if (Random.Range(1, 2) == 0)
                     {
-                        currentBoat = Instantiate(boatPrefab, new Vector3(0, 4.0f, Random.Range(0, 58)), Quaternion.identity);
+                        currentBoat = Instantiate(boatPrefab, new Vector3(0, 3.0f, Random.Range(0, 58)), Quaternion.identity);
+                        currentBoat.transform.rotation = Quaternion.Euler(0, 0, 90);
                         reverse = true;
                     }
                     else
                     {
-                        currentBoat = Instantiate(boatPrefab, new Vector3(63, 4.0f, Random.Range(0, 58)), Quaternion.identity);
+                        currentBoat = Instantiate(boatPrefab, new Vector3(63, 3.0f, Random.Range(0, 58)), Quaternion.identity);
+                        currentBoat.transform.rotation = Quaternion.Euler(0, 0, 90);
                     }
                     madeObjectRight = true;
                 }
             }
             i++;
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(15f);
         }
     }
 }
