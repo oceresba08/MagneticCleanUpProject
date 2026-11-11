@@ -495,6 +495,134 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5235079473266955479, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
   m_PrefabInstance: {fileID: 6666620901090421157}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &669495092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 669495097}
+  - component: {fileID: 669495096}
+  - component: {fileID: 669495095}
+  - component: {fileID: 669495094}
+  - component: {fileID: 669495093}
+  m_Layer: 0
+  m_Name: StrengthPowerUp (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &669495093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669495092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f410fc17ff837d4881a975e4867fb83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUpPickup
+  type: 1
+  multiplier: 4
+  duration: 10
+--- !u!135 &669495094
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669495092}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &669495095
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669495092}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bbcd4e6a814f046498aa71d7673fc416, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &669495096
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669495092}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &669495097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669495092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 43.74, y: 3.62, z: 22.67}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &689067115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -677,7 +805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpPickup
   type: 1
-  multiplier: 2
+  multiplier: 4
   duration: 10
 --- !u!135 &807485144
 SphereCollider:
@@ -903,7 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpPickup
   type: 0
-  multiplier: 1.5
+  multiplier: 2
   duration: 8
 --- !u!1 &1022727003
 GameObject:
@@ -1984,6 +2112,31 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 3707662713011784116, guid: 560ea1062e47d624fa5cafe268c6ea43, type: 3}
   m_PrefabInstance: {fileID: 4236531498296154878}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2222333511098742097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815625963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c977870b2865bb4d98b1898e17e2d64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerUpController
+--- !u!114 &2222333511098742098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815625963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0287af449a1f144a80c6ffa736787a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeightlessCargoBoost
+  boostedItemMass: 0.01
 --- !u!1001 &2986314663894528185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2207,6 +2360,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7040719705634677737, guid: 560ea1062e47d624fa5cafe268c6ea43, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2222333511098742092}
+    - targetCorrespondingSourceObject: {fileID: 7040719705634677737, guid: 560ea1062e47d624fa5cafe268c6ea43, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2222333511098742097}
+    - targetCorrespondingSourceObject: {fileID: 7040719705634677737, guid: 560ea1062e47d624fa5cafe268c6ea43, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2222333511098742098}
   m_SourcePrefab: {fileID: 100100000, guid: 560ea1062e47d624fa5cafe268c6ea43, type: 3}
 --- !u!1001 &4430834068536894702
 PrefabInstance:
@@ -2662,3 +2821,4 @@ SceneRoots:
   - {fileID: 1076018591}
   - {fileID: 1021911001}
   - {fileID: 807485147}
+  - {fileID: 669495097}
