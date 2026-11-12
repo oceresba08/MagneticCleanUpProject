@@ -4998,34 +4998,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.18426967
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.30015916
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.46458572
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99290025
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.11895015
-      objectReference: {fileID: 0}
-    - target: {fileID: 1400196052288183449, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -13.663
-      objectReference: {fileID: 0}
     - target: {fileID: 2332380125137593585, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
       propertyPath: m_Name
       value: TinCan (2)
