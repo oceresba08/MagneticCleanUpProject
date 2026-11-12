@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d5812bac2073784458df37083f9e71db, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f98474a246d37ae4aa3f24dc81aeed85, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -112,12 +116,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2332380125137593585, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
       propertyPath: m_Name
-      value: SpamCanBox
+      value: RainSpamCanBox
       objectReference: {fileID: 0}
     - target: {fileID: 9106486926279450873, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ff99d0e425737e243b53a4d83aac6c89, type: 2}
+      objectReference: {fileID: 2100000, guid: f98474a246d37ae4aa3f24dc81aeed85, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4200958761465224523, guid: 466d5cdfa82213c44a2261a3d8f3f958, type: 3}

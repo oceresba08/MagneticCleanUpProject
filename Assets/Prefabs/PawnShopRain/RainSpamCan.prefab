@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1524046046032112506, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ee338f541ac1fa04c972149e8fef7ae3, type: 2}
     - target: {fileID: 5411221240678772594, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: m_Name
-      value: SpamCan
+      value: RainSpamCan
       objectReference: {fileID: 0}
     - target: {fileID: 7064992403250526078, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -134,6 +138,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 9679b9f0fed8b1a4cbf57e4ff4d700eb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ee338f541ac1fa04c972149e8fef7ae3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

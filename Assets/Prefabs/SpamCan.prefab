@@ -12,13 +12,17 @@ PrefabInstance:
       propertyPath: kind
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1524046046032112506, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ee338f541ac1fa04c972149e8fef7ae3, type: 2}
     - target: {fileID: 4859262739388100163, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: value
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4859262739388100163, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: weight
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5411221240678772594, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: m_Name
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187658442076611124, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: m_Height
-      value: 0.82
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 8187658442076611124, guid: 4351c254f1472a147aff98be251f9d5f, type: 3}
       propertyPath: m_Radius
@@ -158,6 +162,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 9679b9f0fed8b1a4cbf57e4ff4d700eb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ee338f541ac1fa04c972149e8fef7ae3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
