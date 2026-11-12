@@ -5043,6 +5043,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3338135482618558564, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 415
+      objectReference: {fileID: 0}
+    - target: {fileID: 3338135482618558564, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3526630389598094560, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: m_fontSize
       value: 37.8
@@ -5235,6 +5243,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 4900923203074776327, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 415
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900923203074776327, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4910881503915515873, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: m_fontSize
       value: 108.6
@@ -5266,6 +5282,14 @@ PrefabInstance:
     - target: {fileID: 4910881503915515873, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278246143
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001672320269346352, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 415
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001672320269346352, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5235079473266955479, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: m_IsActive
@@ -5389,7 +5413,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7331806008241188772, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 298.1
+      value: 415
+      objectReference: {fileID: 0}
+    - target: {fileID: 7331806008241188772, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7420140265114713930, guid: 3bde24a0cc389fd48b3604ac1181aa77, type: 3}
       propertyPath: magnet
