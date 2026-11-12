@@ -65,12 +65,12 @@ public class MagnetController : MonoBehaviour
         // Restore the magnet after the cooldown.
         if (magnetDisabledUntil > 0f)
         {
+            StartCoroutine(onCoroutine());
             if (Time.time >= magnetDisabledUntil)
             {
                 magnetDisabledUntil = 0f;
                 magnetIsOn = true;
             }
-
             // Ignore E during the crab cooldown.
             return;
         }
@@ -138,6 +138,7 @@ public class MagnetController : MonoBehaviour
 
     public void GetHitByCrab()
     {
+        showKnocked = true;
         // Drop everything the ball is carrying.
         DropEverything();
 
@@ -147,7 +148,7 @@ public class MagnetController : MonoBehaviour
         // Record when the magnet can work again.
         magnetDisabledUntil =
             Time.time + crabDisableDuration;
-
+        
         Debug.Log("Magnet disabled by crab!");
     }
 
@@ -265,16 +266,17 @@ public class MagnetController : MonoBehaviour
             {
                 DropEverything();
             }
+            showKnocked = true;
         }
     }
 
-    void OnTriggerExit(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Submarine"))
         {
             showKnocked = true;
         }
-    }
+    }*/
 
     IEnumerator onCoroutine()
     {
